@@ -1,4 +1,4 @@
-# prokect-is
+# photographer-portfolio
 
 ## Done
 
