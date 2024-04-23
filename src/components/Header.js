@@ -10,8 +10,8 @@ const Header = () => {
           alt="logo"
         />
       </div>
-      <div className="flex px-8">
-        <ul className="flex p-4 m-2 space-x-4">
+      <div className="flex px-8 ">
+        <ul className="flex items-end p-4 m-2 space-x-4 mx-auto right-0 cursor-pointer">
           <li>Portraits</li>
           <li>Landscapes</li>
           <li>Street</li>
