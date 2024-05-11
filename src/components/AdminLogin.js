@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
 import { checkValidData } from "../utils/validate";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const AdminLogin = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const fullNameRef = useRef(null);
+  // const fullNameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -16,12 +18,43 @@ const AdminLogin = () => {
 
   const handleButtonClick = () => {
     const message = checkValidData(
-      fullNameRef.current.value,
+      // fullNameRef.current.value,
       emailRef.current.value,
       passwordRef.current.value
     );
     console.log(message);
     setErrorMessage(message);
+
+    // if there is some message exists which means some error is there during validation
+    // then return code, dont go ahead to signin/signup
+    if (message) return;
+
+    // if data is valid then this message will be null
+    //Signin /Sign Up
+    if (!isSignInForm) {
+      //Sign up Logic
+      // firebase api for signup
+      createUserWithEmailAndPassword(
+        auth,
+
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+          // ..
+        });
+    } else {
+      //Sign in Logic
+    }
   };
   return (
     <div className="flex justify-between">
