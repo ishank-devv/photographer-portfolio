@@ -1,7 +1,7 @@
-export const checkValidData = (fullname, email, password) => {
-  const isFullNameValid = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(
-    fullname
-  );
+export const checkValidData = (email, password) => {
+  // const isFullNameValid = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(
+  //   fullname
+  // );
   const isEmaildValid =
     /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(email);
   const isPasswordValid =

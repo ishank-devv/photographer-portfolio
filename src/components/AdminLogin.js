@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import { checkValidData } from "../utils/validate";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../utils/firebase";
 
 const AdminLogin = () => {
@@ -8,7 +11,7 @@ const AdminLogin = () => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const fullNameRef = useRef(null);
+  // const fullNameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -18,7 +21,7 @@ const AdminLogin = () => {
 
   const handleButtonClick = () => {
     const message = checkValidData(
-      fullNameRef.current.value,
+      // fullNameRef.current.value,
       emailRef.current.value,
       passwordRef.current.value
     );
@@ -53,6 +56,22 @@ const AdminLogin = () => {
         });
     } else {
       //Sign in Logic
+      signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
     }
   };
   return (
@@ -79,7 +98,7 @@ const AdminLogin = () => {
         </h1>
         {!isSignInForm && (
           <input
-            ref={fullNameRef}
+            // ref={fullNameRef}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-700"
