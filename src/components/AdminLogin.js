@@ -8,7 +8,7 @@ const AdminLogin = () => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // const fullNameRef = useRef(null);
+  const fullNameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -18,7 +18,7 @@ const AdminLogin = () => {
 
   const handleButtonClick = () => {
     const message = checkValidData(
-      // fullNameRef.current.value,
+      fullNameRef.current.value,
       emailRef.current.value,
       passwordRef.current.value
     );
@@ -36,7 +36,6 @@ const AdminLogin = () => {
       // firebase api for signup
       createUserWithEmailAndPassword(
         auth,
-
         emailRef.current.value,
         passwordRef.current.value
       )
